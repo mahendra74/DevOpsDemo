@@ -40,18 +40,19 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
-- stage: "DeployToDev"
-  dependsOn: "Build"
-  jobs:
-  -job:
-   pool:
+stages:
+  - stage: "DeployTodev008"
+    dependsOn: "Build"
+    jobs:
+    -job:
+    pool:
     vmImage: "windows-latest"
-   steps:
-   - download: current
-     artifact: drop
+    steps:
+    - download: current
+      artifact: drop
 
-   - task: AzureRmWebAppDeployment@4
-     inputs:
+    - task: AzureRmWebAppDeployment@4
+      inputs:
       ConnectionType: 'AzureRM'
       azureSubscription: 'Azure Connection'
       appType: 'webApp'
